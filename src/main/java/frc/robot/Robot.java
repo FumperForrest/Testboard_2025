@@ -96,9 +96,10 @@ public class Robot extends TimedRobot {
     System.out.println(String.format("TV: %s", tv));
     System.out.println(String.format("TX: %s", tx));
     System.out.println(String.format("TY: %s", LimelightHelpers.getTY("limelight")));
+    System.out.println(String.format("ID: %s", LimelightHelpers.getFiducialID("limelight")));
 
     if (tv) {
-      m_Spark.set(tx/100);
+      m_Spark.set(tx/50);
     } else {
       m_Spark.set(0);
     }
