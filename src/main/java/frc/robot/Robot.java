@@ -85,23 +85,23 @@ public class Robot extends TimedRobot {
 
   /** This function is called once when teleop is enabled. */
   @Override
-  public void teleopInit() {}
+  public void teleopInit() {
+    LimelightHelpers.setLEDMode_ForceOff("limelight");
+  }
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    m_Spark.set(Mover.getRightX());
-    /*try{
-      NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-      
-      System.out.println("Preparing to sleep 5 seconds");
-      Thread.sleep(5000);
-      Double id = LimelightHelpers.getFiducialID("Limelight2534");
+    boolean tv = LimelightHelpers.getTV("limelight");
+    double tx = LimelightHelpers.getTX("limelight");
+    System.out.println(String.format("TV: %s", tv));
+    System.out.println(String.format("TX: %s", tx));
+    System.out.println(String.format("TY: %s", LimelightHelpers.getTY("limelight")));
 
-      System.out.println(table.getEntry("tid"));
-    }catch(Exception e) {
-      e.printStackTrace();
-    }*/
-    
+    if (tv) {
+      m_Spark.set(tx/100);
+    } else {
+      m_Spark.set(0);
+    }
   }
   /** This function is called once when the robot is disabled. */
   @Override
