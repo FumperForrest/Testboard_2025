@@ -4,15 +4,19 @@
 
 package frc.robot;
 
+import edu.wpi.first.apriltag.AprilTag;
+import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.revrobotics.spark.SparkMax;
+
+import java.util.function.Supplier;
+
 import com.revrobotics.spark.SparkLowLevel.MotorType;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 /**
  * The methods in this class are called automatically corresponding to each mode, as described in
  * the TimedRobot documentation. If you change the name of this class or the package after creating
@@ -25,7 +29,7 @@ public class Robot extends TimedRobot {
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
   public SparkMax m_Spark;
   public XboxController Mover;  // 0 is the USB Port to be used as indicated on the Driver Station
-  
+
    /* This function is run when the robot is first started up and should be used for any
   // * initialization code.
   */
@@ -85,7 +89,19 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-  m_Spark.set(Mover.getRightX())
+    m_Spark.set(Mover.getRightX());
+    /*try{
+      NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+      
+      System.out.println("Preparing to sleep 5 seconds");
+      Thread.sleep(5000);
+      Double id = LimelightHelpers.getFiducialID("Limelight2534");
+
+      System.out.println(table.getEntry("tid"));
+    }catch(Exception e) {
+      e.printStackTrace();
+    }*/
+    
   }
   /** This function is called once when the robot is disabled. */
   @Override
